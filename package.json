@@ -1,20 +1,37 @@
 {
   "name": "chess.js",
-  "version": "0.10.3",
+  "version": "1.0.0-alpha",
+  "main": "dist/chess.js",
+  "types": "dist/chess.d.ts",
   "license": "BSD-2-Clause",
-  "main": "chess.js",
-  "homepage": "https://github.com/jhlywa/chess.js",
-  "keywords": [
-    "chess"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jhlywa/chess.js.git"
-  },
   "devDependencies": {
-    "jest": "^25.1.0"
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.8",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
+    "husky": "1.3.1",
+    "jest": "^24.9.0",
+    "lint-staged": "8.1.7",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.7.5"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "lint": "eslint src/ --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint src/ --ext .ts,.tsx,.js,.jsx --fix"
+  },
+  "lint-staged": {
+    "**/*.json": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "yarn lint --",
+      "git add"
+    ]
   }
 }
