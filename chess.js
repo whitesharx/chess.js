@@ -444,7 +444,7 @@ var Chess = function (fen) {
     return piece ? { type: piece.type, color: piece.color } : null
   }
 
-  function put(piece, square) {
+  function put(piece, square, options) {
     /* check for valid piece object */
     if (!('type' in piece && 'color' in piece)) {
       return false
@@ -462,8 +462,11 @@ var Chess = function (fen) {
 
     var sq = SQUARES[square]
 
+    const { allowMoreKings = false } = options || {};
+
     /* don't let the user place more than one king */
     if (
+      !allowMoreKings &&
       piece.type == KING &&
       !(kings[piece.color] == EMPTY || kings[piece.color] == sq)
     ) {
@@ -1842,8 +1845,8 @@ var Chess = function (fen) {
       return clear()
     },
 
-    put: function (piece, square) {
-      return put(piece, square)
+    put: function (piece, square, options) {
+      return put(piece, square, options)
     },
 
     get: function (square) {
