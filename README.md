@@ -1,3 +1,4 @@
+# THIS IS A FORK OF https://github.com/jhlywa/chess.js
 # chess.js
 
 [![Build Status](https://travis-ci.org/jhlywa/chess.js.svg?branch=master)](https://travis-ci.org/jhlywa/chess.js)
