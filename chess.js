@@ -25,7 +25,7 @@
  *
  *----------------------------------------------------------------------------*/
 
-var Chess = function (fen) {
+var Chess = function (fen, options) {
   var BLACK = 'b'
   var WHITE = 'w'
 
@@ -167,7 +167,7 @@ var Chess = function (fen) {
   if (typeof fen === 'undefined') {
     load(DEFAULT_POSITION)
   } else {
-    load(fen)
+    load(fen, options)
   }
 
   function clear(keep_headers) {
@@ -213,7 +213,7 @@ var Chess = function (fen) {
 
   function load(fen, options) {
     const { allowMoreKings = false, keep_headers = false } = options || {};
-    
+
     var tokens = fen.split(/\s+/)
     var position = tokens[0]
     var square = 0
