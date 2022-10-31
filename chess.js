@@ -211,11 +211,9 @@ var Chess = function (fen) {
     load(DEFAULT_POSITION)
   }
 
-  function load(fen, keep_headers) {
-    if (typeof keep_headers === 'undefined') {
-      keep_headers = false
-    }
-
+  function load(fen, options) {
+    const { allowMoreKings = false, keep_headers = false } = options || {};
+    
     var tokens = fen.split(/\s+/)
     var position = tokens[0]
     var square = 0
@@ -235,7 +233,7 @@ var Chess = function (fen) {
         square += parseInt(piece, 10)
       } else {
         var color = piece < 'a' ? WHITE : BLACK
-        put({ type: piece.toLowerCase(), color: color }, algebraic(square))
+        put({ type: piece.toLowerCase(), color: color }, algebraic(square), { allowMoreKings })
         square++
       }
     }
@@ -1402,8 +1400,8 @@ var Chess = function (fen) {
     /***************************************************************************
      * PUBLIC API
      **************************************************************************/
-    load: function (fen) {
-      return load(fen)
+    load: function (fen, options) {
+      return load(fen, options)
     },
 
     reset: function () {
@@ -1738,7 +1736,7 @@ var Chess = function (fen) {
       /* load the starting position indicated by [Setup '1'] and
        * [FEN position] */
       if (headers['SetUp'] === '1') {
-        if (!('FEN' in headers && load(headers['FEN'], true))) {
+        if (!('FEN' in headers && load(headers['FEN'], { keep_headers: true }))) {
           // second argument to load: don't clear the headers
           return false
         }
